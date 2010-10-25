@@ -1,4 +1,11 @@
-h3. About
+<pre>
+.::    .   .:::::::::.    :::.  .,-:::::/  .        :    :::.   :::.    :::.
+';;,  ;;  ;;;' ;;;`;;;;,  `;;;,;;-'````'   ;;,.    ;;;   ;;`;;  `;;;;,  `;;;
+ '[[, [[, [['  [[[  [[[[[. '[[[[[   [[[[[[/[[[[, ,[[[[, ,[[ '[[,  [[[[[. '[[
+   Y$c$$$c$P   $$$  $$$ "Y$c$$"$$c.    "$$ $$$$$$$$"$$$c$$$cc$$$c $$$ "Y$c$$
+    "88"888    888  888    Y88 `Y8bo,,,o88o888 Y88" 888o888   888,888    Y88
+     "M "M"    MMM  MMM     YM   `'YMUP"YMMMMM  M'  "MMMYMM   ""` MMM     YM
+</pre>
 
 !http://github.com/alexyoung/wingman/raw/master/public/screenshots/wingman.png!
 
