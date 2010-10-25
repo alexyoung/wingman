@@ -1,5 +1,7 @@
 h3. About
 
+!http://github.com/alexyoung/wingman/raw/master/public/screenshots/wingman.png!
+
 This is an open source to-do list web application.  It features a rich desktop-like interface.
 
 "Try the demo":http://wingman.heroku.com/
