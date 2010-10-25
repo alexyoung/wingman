@@ -28,7 +28,7 @@ To install:
 
 # Check the project out with <code>git clone</code>
 # Fill out your Mongo server details in <code>config/mongoid.yml</code>
-# Run <code>bundle install</code> (prefix with <code>sudo<code> if required)
+# Run <code>bundle install</code> (prefix with <code>sudo</code> if required)
 # Run <code>rails server</code> or install for your web server
 
 h3. Heroku Configuration
