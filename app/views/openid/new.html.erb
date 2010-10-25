@@ -1,0 +1,18 @@
+<%= form_tag openid_path do %>
+  <%= raw render_flash %> 
+  <p>Enter an OpenID to continue.</p>
+  <div class="help open-id-help" style="display: none">
+    <h3>OpenID Help</h3>
+    <div class="help-content">
+      <p>If you have an account with Yahoo! your OpenID is: me.yahoo.com/username</p>
+      <p><a href="http://www.google.com/profiles">Google Profile</a> can be used to create an OpenID for your Google account.</p>
+    </div>
+  </div>
+  <p>
+    <img src="/images/openid.gif" alt="" /> <%= text_field_tag 'openid_url', '', :size => 30 %>
+  </p>
+  <p>
+    <a href="#" id="login-button">Login</a> <a href="#" id="OpenIDHelpLink">OpenID Help</a>
+  </p>
+<% end %>
+

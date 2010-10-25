@@ -1,0 +1,59 @@
+h3. About
+
+This is an open source to-do list web application.  It features a rich desktop-like interface.
+
+"Try the demo":http://wingman.heroku.com/
+
+h3. Installation
+
+You'll need the following:
+
+# An account with an OpenID provider.  These are easier to come by than you might think (if you use Flickr you have one through Yahoo!)
+# A mongo server.  I use "MongoHQ":http://mongohq.com/ for some projects, but it's easy to install locally (with apt, homebrew, ports, etc.)
+# A web server for public use.  Apache or Nginx with "Passenger":http://www.modrails.com/ will work great
+# This project will also work well with Heroku
+
+To install:
+
+# Check the project out with <code>git clone</code>
+# Fill out your Mongo server details in <code>config/mongoid.yml</code>
+# Run <code>bundle install</code> (prefix with <code>sudo<code> if required)
+# Run <code>rails server</code> or install for your web server
+
+h3. Heroku Configuration
+
+Run this to add the settings Mongo requires:
+
+<code>
+heroku config:add MONGOID_HOST=server_hostname MONGOID_PORT=27039 MONGOID_DATABASE=database_name MONGOID_USERNAME=username MONGOID_PASSWORD=password
+</code>
+
+h3. Libraries
+
+* Rails 3
+* ruby-openid, "documentation":http://openidenabled.com/files/ruby-openid/docs/2.1.2/, "example code":http://github.com/pelle/ruby-openid/blob/master/examples/rails_openid/app/controllers/consumer_controller.rb
+* mongoid, "documentation":http://mongoid.org/docs/installation/
+* jQuery, "jQueryUI":http://jqueryui.com
+* "Aristo jQuery theme":http://taitems.tumblr.com/post/482577430/introducing-aristo-a-jquery-ui-theme, "demo":http://www.warfuric.com/taitems/demo.html
+* json2
+
+h3. Assets
+
+* "OpenID badge":http://openid.net/foundation/news/logos/
+* Aristo theme graphics
+
+h3. License (GPL)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see "http://www.gnu.org/licenses/":http://www.gnu.org/licenses/.
+

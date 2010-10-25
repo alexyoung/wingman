@@ -1,0 +1,22 @@
+defaults: &defaults
+
+development:
+  <<: *defaults
+  host: localhost
+  port: 27017
+  database: wingman_development
+
+test:
+  <<: *defaults
+  database: wingman_test
+  host: localhost
+  port: 27017
+
+# set these environment variables on your production server
+production:
+  <<: *defaults
+  host: <%= ENV['MONGOID_HOST'] %>
+  port: <%= ENV['MONGOID_PORT'] %>
+  database: <%= ENV['MONGOID_DATABASE'] %>
+  username: <%= ENV['MONGOID_USERNAME'] %>
+  password: <%= ENV['MONGOID_PASSWORD'] %>

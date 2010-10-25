@@ -1,0 +1,167 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+    <title>Wingman</title> 
+    <link type="text/css" href="/stylesheets/aristo.css" rel="stylesheet" />	
+    <link type="text/css" href="/stylesheets/screen.css" rel="stylesheet" />
+    <!-- iPad Stylesheet -->
+    <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="/stylesheets/ipad.css" type="text/css" />
+    <!-- iPhone Stylesheet -->
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="/stylesheets/iphone.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <% if Rails.env == 'production' %>
+      <%= javascript_include_tag 'all.js' %>
+    <% else %>
+      <%= javascript_include_tag 'all-development.js' %>
+    <% end %>
+  </head>
+  <body>
+    <% unless logged_in? %>
+      <div id="login-dialog">
+        <%= render :template => 'openid/new' %>
+      </div>
+    <% end %>
+    <div class="outline-view">
+      <ul>
+        <li><h2>Collect</h2></li>
+        <li>
+          <ul class="items">
+            <li><a href="#" class="named-collection" id="show-inbox">Inbox</a></li>
+          </ul>
+        </li>
+        <li><h2>Plan</h2></li>
+        <li>
+          <ul class="items">
+            <li><a href="#" class="named-collection" id="show-today">Today</a></li>
+            <li style="display: none"><a href="#" class="named-collection" id="show-next">Next</a></li>
+          </ul>
+        </li>
+        <li><h2>Organize</h2></li>
+        <li>
+          <ul class="items projects">
+          </ul>
+        </li>
+        <li><h2>Log</h2></li>
+        <li>
+          <ul class="items archive">
+            <li><a href="#" id="show-archive">Archive</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="content-divider"></div>
+    <div class="content" id="project">
+      <div id="delete-project-dialog" title="Delete Project" style="display: none"> 
+        <p>Are you sure you want to delete that project and all its tasks?</p> 
+      </div>
+
+      <div id="feedback" style="display: none"></div>
+
+      <ul id="project-info" class="project-header ui-helper-clearfix">
+        <li class="project-field name ui-helper-clearfix"><h1><div class="state ui-state-default ui-corner-all done"><span class="ui-icon ui-icon-todo"></span></div><div class="name-text editable-field"></div><div id="delete-project-button" class="delete ui-state-default ui-corner-all done"><span class="ui-icon ui-icon-trash"></span></div></h1></li>
+        <li class="project-field large notes editable-field">Notes</li>
+        <li class="body">
+          <ul id="project-todo-items" class="todo-items">
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="content" id="search-results" style="display: none">
+      <div class="title">
+        <h1>Search</h1>
+      </div>
+      <div class="container">
+        <ul id="search-todo-items"></ul>
+      </div>
+    </div>    
+    <div class="content" id="settings" style="display: none">
+      <div class="title">
+        <h1>Settings</h1>
+      </div>
+      <div class="container">
+        <div id="tabs"> 
+          <ul> 
+            <li><a href="#tabs-1">Your Account</a></li> 
+            <li><a href="#tabs-2">Help</a></li> 
+          </ul> 
+          <div id="tabs-1">
+            <h2>Account Details</h2>
+            <p>Change your account details here.</p>
+            <div id="settings-feedback"></div>
+            <%= form_for :current_user, :url => update_user_storage_url, :html => { :class => 'settings_form' } do |f| %>
+              <div>
+                <%= f.label :name, 'Name:' %>
+                <%= f.text_field :name %>
+              </div>
+              <div>
+                <%= f.label :display_identifier, 'OpenID:' %>
+                <%= f.text_field :display_identifier, :readonly => true %>
+              </div>
+              <div class="submit">
+                <%= f.submit 'Save' %>
+              </div>
+            <% end %>
+            <br clear="all" />
+          </div> 
+          <div id="tabs-2">
+            <h3>Keyboard Shortcuts</h3>
+            <table cellpadding="0" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>j</td>
+                  <td>Next task</td>
+                </tr>
+                <tr>
+                  <td>k</td>
+                  <td>Previous task</td>
+                </tr>
+                <tr>
+                  <td>o or space</td>
+                  <td>Open task</td>
+                </tr>
+                <tr>
+                  <td>n</td>
+                  <td>New task</td>
+                </tr>
+                <tr>
+                  <td>#</td>
+                  <td>Delete task</td>
+                </tr>
+                <tr>
+                  <td>[tab]</td>
+                  <td>Move between editable fields</td>
+                </tr>
+                <tr>
+                  <td>[shift] click</td>
+                  <td>Select a group of tasks</td>
+                </tr>
+                <tr>
+                  <td>[esc]</td>
+                  <td>Close field, task, or deselect a task</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> 
+        </div> 
+      </div>    
+    </div>    
+    <div id="global-menu" class="ui-state-default">
+      <ul>
+        <li class="task-related-button"><div class="project add-button">Project</div></li>
+        <li class="task-related-button"><div class="task add-button">Task</div></li>
+        <li class="task-related-button" style="display: none"><div id="delete-task" class="task delete-button">Delete Task</div></li>
+        <li class="task-related-button" style="display: none"><div id="archive-tasks" class="task archive-button">Archive</div></li>
+        <li class="task-related-button right search"><div id="search"><form><input type="text" value="Search" /></form></div></li>
+        <li class="settings-related-button right red-button" style="display: none"><a href="/logout"><div id="logout">Logout</div></a></li>
+        <li class="task-related-button right"><div id="show-settings" class="settings-button">Settings</div></li>
+      </ul>
+    </div>
+  </body>
+</html>

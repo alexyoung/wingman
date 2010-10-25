@@ -1,0 +1,103 @@
+body { font: 82.5% Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #fff }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0 }
+
+#global-menu { position: fixed; bottom: 0; width: 100%; float: left; padding: 5px 0; margin: 0; border-left: none; border-right: none; border-bottom: none }
+#global-menu ul { list-style-type: none; margin: 0 5px; padding: 0; clear: right }
+#global-menu ul li { float: left; margin-right: 5px }
+#global-menu ul li.right { float: right; margin-left: 5px; margin-right: 0 }
+#global-menu ul li form { margin: 0; padding: 0 }
+#global-menu ul li form input { margin: 0; }
+
+.container h2 { margin-top: 10px }
+.container { padding: 10px }
+
+.title h1 { padding: 5px 5px 5px 10px; text-shadow: #fff 0 1px 1px; color: #4f4f4f; }
+div.title { margin: 0; padding: 0; border-bottom: 1px solid #b6b6b6; background-color: #b6b6b6; background: url('images/the_gradient.gif') 0 0 repeat-x }
+
+.outline-view { float: left; width: 23%; background-color: #dfe3ea; overflow: auto; }
+.outline-view ul { list-style-type: none; margin: 0; padding: 0 }
+.outline-view ul.items li { margin: 0; padding: 0; }
+.outline-view ul.items a { color: #000; text-decoration: none; display: block; padding: 7px 25px }
+.outline-view ul.items li.selected a { color: #fff; font-weight: bold; text-shadow: #666 0 1px 1px }
+.outline-view ul.items .selected {
+  background-color: #8897ba;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b2bed7', endColorstr='#8897ba');
+  background: -webkit-gradient(linear, left top, left bottom, from(#b2bed7), to(#8897ba));
+  background: -moz-linear-gradient(top,  #b2bed7,  #8897ba);
+}
+.outline-view .hover { background-color: #f0f0f0; }
+.outline-view .hover-drag { background-color: #ffc !important; border: 3px solid #3333dd !important }
+.dragging { width: 100px !important }
+.outline-view h2 { font-size: 100%; padding: 10px 10px 2px 10px; text-shadow: #fff 0 1px 1px; text-transform: uppercase; color: #696969 }
+.outline-view a { outline: none }
+
+.content { float: left; width: 77%; margin: 0; padding: 0; overflow: auto; overflow-x: hidden }
+.content-divider { float: left; background-color: #b6b6b6; width: 2px; margin: 0; padding: 0; cursor: e-resize; cursor: col-resize; }
+
+/* Only webkit seems to show text selections when double clicking on the buttons */
+ul.todo-items { margin: 0; padding: 0; list-style-type: none; -webkit-user-select: none; }
+ul.todo-items li { margin: 1px 0; width: 100%; white-space: nowrap }
+ul.todo-items .button { text-align: left; }
+ul.todo-items .button .ui-button-text { text-align: left; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; }
+.state, .delete { margin: 0 1px; position: relative; padding: 6px 0 7px 0; cursor: pointer; width: 30px; float: left; }
+.state span.ui-icon, .delete span.ui-icon { margin: 0 6px 0 7px; }
+.delete { float: right }
+
+ul.project-header { list-style-type: none; margin: 0; padding: 0; width: 100% }
+ul.project-header > li { border-bottom: 1px solid #b6b6b6; margin: 0; padding: 8px }
+ul.project-header li.body { border: none }
+.name-text { margin-left: 5px !important; float: left }
+
+ul.todo-items li.details { margin: 10px 0 }
+.button .ui-button-text { background-image: url('/stylesheets/images/subtle_button_bg.gif') !important } 
+ul.todo-items div.details > span { background-color: #f0f0f0 !important; background-image: none !important } 
+ul.todo-items ul.details { list-style-type: none; margin: 0; padding: 0; font-weight: normal; }
+ul.todo-items ul.details > li { border-bottom: 1px solid #b6b6b6; margin: 0; padding: 8px 0 }
+ul.todo-items ul.details li.last { border: none }
+ul.todo-items ul.details .name { font-weight: bold }
+.ui-icon-todo { background-image: url('images/todo_blank.png') !important; }
+.ui-icon-todo-today { background-image: url('images/todo.png') !important; }
+.todo-items .highlight > span { background-color: #dfe3ea !important; background-image: none !important; }
+
+.search, .search .ui-button-text { background-color: #fff !important; background-image: none !important }
+.search { cursor: default !important }
+.search .ui-button-text { cursor: default !important }
+.search input { border: none; padding: 0; margin: 0 }
+.search input:focus { outline: none; }
+
+input.editable { width: 99%; background-color: #ffc; border: 1px solid #b6b6b6; padding: 4px }
+textarea.editable { width: 99%; background-color: #ffc; border: 1px solid #b6b6b6; padding: 4px }
+.large { white-space: pre !important }
+
+.red-button .ui-state-default .ui-button-text { background: url(images/red_button_bg.gif) 0px 0px repeat-x !important; }
+.red-button .ui-state-hover .ui-button-text { background: url(images/red_button_bg.gif) 0px 0px repeat-x !important; }
+.red-button .ui-state-active .ui-button-text { background: url(images/red_button_bg.gif) 0px bottom repeat-x !important; }
+
+.task-state-icon { float: right }
+
+#feedback { padding: 0 20px }
+#settings-feedback { padding: 0; margin: 0 0 20px 0 }
+div.submit { margin-top: 10px }
+
+.close-task, .clear-due { float: right; border: none !important; background-color: transparent; }
+.close-task a { border: none !important; font-weight: bold; background-color: transparent; }
+a.close-task:active { color: #000 !important }
+.clear-due { float: left; margin: 0 5px 0 0; padding: 0; width: 16px; height: 16px }
+.due-button { float: left; border: none !important; margin-right: 5px }
+
+table { margin: 1em 0 0 0; padding: 2px; border: #b6b6b6 solid 1px }
+td, th { text-align: left; margin: 0; padding: 5px 50px 5px 5px }
+th { background-color: #ffc }
+
+.help-content { background-color: #ffd; margin: 0; padding: 0; }
+.help h3 { background-color: #eaeaea; color: #000; margin: 0; padding: 5px 10px; text-shadow: #fff 0 1px 1px; font-size: 13px }
+.help p { margin: 0; padding: 5px 10px }
+
+#OpenIDHelpLink { margin-left: 1em }
+#openid_url:focus { background-color: #ffc }
+#openid_url { width: 330px; margin-left: 7px }
+
+.settings_form label { width: 7.5em; display: block; float: left }
+.settings_form input { float: left }
+.settings_form div { clear: both }
