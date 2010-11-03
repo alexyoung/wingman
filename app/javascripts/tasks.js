@@ -18,8 +18,8 @@ var TasksController = {
     button.parent('li').addClass('details');
     button.addClass('details');
     button.find('span').html('<ul class="details">'
-      + '<li name="name" class="first name editable-field">' + (task.get('name') || defaultFieldValues.name) + '</li>'
-      + '<li name="notes" class="notes editable-field large">' + (task.get('notes') || defaultFieldValues.notes) + '</li>'
+      + '<li name="name" class="first name editable-field">' + jQuery().escapeText(task.get('name') || defaultFieldValues.name) + '</li>'
+      + '<li name="notes" class="notes editable-field large">' + jQuery().escapeText(task.get('notes') || defaultFieldValues.notes) + '</li>'
       + '<li name="due" class="last type-date editable-field"><span class="due-button">' + (presentDate(task.get('due')) || defaultFieldValues.due)  + '</span>'
       + clearDueDate
       + '<span class="close-task"><a class="close-task" href="#">Close</a></span>'
@@ -53,7 +53,7 @@ var TasksController = {
 
     container = $('<li class="task" id="task_' + task.get('id') + '">'
       + '<div class="handle state ' + stateClass + ' ui-state-default ui-corner-all"><span class="ui-icon ui-icon-todo' + extraClass + '"></span></div>'
-      + '<div class="handle button ui-state-focus">' + projectText + task.get('name') + '</div>'
+      + '<div class="handle button ui-state-focus">' + projectText + jQuery().escapeText(task.get('name')) + '</div>'
       + '</li>');
 
     if (options.position >= 0) {

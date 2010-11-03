@@ -16,7 +16,7 @@ function closeEditable(element) {
       }
     }
 
-    container.html(value);
+    container.text(value);
   });
   $('#datepicker').remove();
 }

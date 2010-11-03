@@ -19,6 +19,10 @@
     }
   };
 
+  $.fn.escapeText = function(text) {
+    return $('<div/>').text(text).html();
+  };
+
   $.fn.disableTextSelect = function() {
     return this.each(function() {
       if ($.browser.mozilla) {
