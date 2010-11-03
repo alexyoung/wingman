@@ -9,6 +9,10 @@
                                                   An open source to-do list app
 </pre>
 
+h3. News
+
+* [2010-11-03] Task names and notes are now escaped, so pasting in HTML should be OK
+
 !http://github.com/alexyoung/wingman/raw/master/public/screenshots/wingman.png!
 
 This is an open source to-do list web application.  It features a rich desktop-like interface.
