@@ -250,10 +250,11 @@ function datePickerSave(value, element, picker) {
 
 $('.editable-field').live('click', function(e) {
   var element = $(this),
-      content = element.html(),
+      content,
       datePicker,
       closestDate,
-      input;
+      input,
+      container = element.closest('li.task');
 
   if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'FORM') return true;
   if (element.find('form').length > 0) return true;
@@ -262,7 +263,6 @@ $('.editable-field').live('click', function(e) {
 
   if (element.find('form').length === 0) {
     if (element.hasClass('type-date')) {
-      container = element.closest('li.task');
       if (container.length > 0) {
         closestDate = Task.find(container.itemID()).get('due');
       } else {
@@ -276,6 +276,8 @@ $('.editable-field').live('click', function(e) {
       try {
         if (content === defaultFieldValues[element.attr('name')]) {
           content = '';
+        } else {
+          content = Task.find(container.itemID()).get(element.attr('name'));
         }
 
         if (element.hasClass('large')) {

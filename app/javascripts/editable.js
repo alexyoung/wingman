@@ -16,7 +16,8 @@ function closeEditable(element) {
       }
     }
 
-    container.text(value);
+    // I sometimes get NOT_FOUND_ERR: DOM Exception 8 if I don't do html('')
+    container.html('').text(value);
   });
   $('#datepicker').remove();
 }

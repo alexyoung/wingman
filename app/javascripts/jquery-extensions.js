@@ -20,7 +20,9 @@
   };
 
   $.fn.escapeText = function(text) {
-    return $('<div/>').text(text).html();
+    if (text) {
+      return $('<div/>').text(text).html();
+    }
   };
 
   $.fn.disableTextSelect = function() {
