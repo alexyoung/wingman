@@ -2526,7 +2526,6 @@ var SearchController = {
 SearchController.installEvents();
 
 function initKeyboardHandlers() {
-  // TODO: I wish this responder chain could be modelled correctly
   var nextResponder = $();
 
   function saveField(e) {
@@ -2588,7 +2587,6 @@ function initKeyboardHandlers() {
 
     if (e.which === 74 || e.which === 106) {
       // j
-      // TODO: j and k should select next when a task is open
       TasksController.closeEditors();
       var selectedTask = $('.task .highlight').first(),
           nextElement = $('.task .highlight').closest('li').next().find('.button');
@@ -2622,6 +2620,8 @@ function initKeyboardHandlers() {
     } else if (e.which === 110) {
       $('.task.add-button').click();
       e.preventDefault();
+    } else if (e.which === 121) {
+      $('#archive-tasks').click();
     }
   });
 }
