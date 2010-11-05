@@ -2204,6 +2204,10 @@ function datePickerSave(value, element, picker) {
   }
 }
 
+function escapeQuotes(text) {
+  return text ? text.replace(/"/g, '&quot;') : text;
+}
+
 $('.editable-field').live('click', function(e) {
   var element = $(this),
       content,
@@ -2239,7 +2243,7 @@ $('.editable-field').live('click', function(e) {
         if (element.hasClass('large')) {
           input = '<textarea class="editable field" rows="6">' + content + '</textarea>';
         } else {
-          input = '<input type="text" class="editable field" value="' + content + '" />';
+          input = '<input type="text" class="editable field" value="' + escapeQuotes(content) + '" />';
         }
         element.html('<form class="editable">' + input + '</form>').find('.field').trigger('focus');
         originalEditableValue = content;
