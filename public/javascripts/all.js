@@ -2030,6 +2030,8 @@ $(window).resize(function() {
   setTimeout(resize, 100);
 });
 
+$(window).focus(resize);
+
 function selectedCollectionIsNamed() {
   return $('.outline-view .items li.selected a').hasClass('named-collection');
 }
