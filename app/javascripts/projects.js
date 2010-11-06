@@ -5,6 +5,27 @@ var ProjectsController = {
     }
   },
 
+  tasks: function(project) {
+    var tasks = [], items;
+    items = Collection.get('project_tasks_' + project.get('id')) || [];
+
+    if (items.length === 0) {
+      tasks = Task.findAll({ 'project_id': project.get('id'), 'archived': false })
+    } else {
+      tasks = jQuery.map(items, function(id) {
+        return Task.find(id);
+      });
+
+      jQuery.each(tasks, function(index, task) {
+        if (task.get('archived')) {
+          delete tasks[index];
+        }
+      });
+    }
+
+    return tasks;
+  },
+
   display: function(project, element) {
     if (!element) {
       element = $('#show_project_' + project.get('id'));
@@ -27,23 +48,7 @@ var ProjectsController = {
       $('.project-header .notes').html('Notes');
     }
 
-    var tasks = [], items;
-    items = Collection.get('project_tasks_' + project.get('id')) || [];
-
-    if (items.length === 0) {
-      tasks = Task.findAll({ 'project_id': project.get('id'), 'archived': false })
-    } else {
-      tasks = jQuery.map(items, function(id) {
-        return Task.find(id);
-      });
-
-      jQuery.each(tasks, function(index, task) {
-        if (task.get('archived')) {
-          delete tasks[index];
-        }
-      });
-    }
-
+    var tasks = ProjectsController.tasks(project);
     TasksController.display(tasks);
     ProjectsController.displayState(project);
 

@@ -1821,6 +1821,27 @@ var ProjectsController = {
     }
   },
 
+  tasks: function(project) {
+    var tasks = [], items;
+    items = Collection.get('project_tasks_' + project.get('id')) || [];
+
+    if (items.length === 0) {
+      tasks = Task.findAll({ 'project_id': project.get('id'), 'archived': false })
+    } else {
+      tasks = jQuery.map(items, function(id) {
+        return Task.find(id);
+      });
+
+      jQuery.each(tasks, function(index, task) {
+        if (task.get('archived')) {
+          delete tasks[index];
+        }
+      });
+    }
+
+    return tasks;
+  },
+
   display: function(project, element) {
     if (!element) {
       element = $('#show_project_' + project.get('id'));
@@ -1843,23 +1864,7 @@ var ProjectsController = {
       $('.project-header .notes').html('Notes');
     }
 
-    var tasks = [], items;
-    items = Collection.get('project_tasks_' + project.get('id')) || [];
-
-    if (items.length === 0) {
-      tasks = Task.findAll({ 'project_id': project.get('id'), 'archived': false })
-    } else {
-      tasks = jQuery.map(items, function(id) {
-        return Task.find(id);
-      });
-
-      jQuery.each(tasks, function(index, task) {
-        if (task.get('archived')) {
-          delete tasks[index];
-        }
-      });
-    }
-
+    var tasks = ProjectsController.tasks(project);
     TasksController.display(tasks);
     ProjectsController.displayState(project);
 
@@ -2335,11 +2340,14 @@ $('#delete-project-button').click(function(e) {
 $('#export-text-button').click(function(e) {
   $('#export-text-dialog').dialog('open');
   var input = $('#export-text-value'),
-      tasks = Task.findAll({ 'project_id': selectedProject(), 'archived': false }),
-      output = '';
+      project = Project.find(selectedProject()),
+      tasks = ProjectsController.tasks(project),
+      output = '',
+      done;
 
   for (var i in tasks) {
-    output += '* ' + tasks[i].get('name') + '\n';
+    done = tasks[i].get('done') ? '✓ ' : '◻ ';
+    output += done + tasks[i].get('name') + '\n';
   }
   input.html(output);
   e.preventDefault();

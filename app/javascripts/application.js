@@ -379,11 +379,14 @@ $('#delete-project-button').click(function(e) {
 $('#export-text-button').click(function(e) {
   $('#export-text-dialog').dialog('open');
   var input = $('#export-text-value'),
-      tasks = Task.findAll({ 'project_id': selectedProject(), 'archived': false }),
-      output = '';
+      project = Project.find(selectedProject()),
+      tasks = ProjectsController.tasks(project),
+      output = '',
+      done;
 
   for (var i in tasks) {
-    output += '* ' + tasks[i].get('name') + '\n';
+    done = tasks[i].get('done') ? '✓ ' : '◻ ';
+    output += done + tasks[i].get('name') + '\n';
   }
   input.html(output);
   e.preventDefault();
