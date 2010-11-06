@@ -113,6 +113,13 @@ function initKeyboardHandlers() {
       e.preventDefault();
     } else if (e.which === 121) {
       $('#archive-tasks').click();
+    } else if (e.which === 13) {
+      var selectedTask = $('.task .highlight');
+      if (selectedTask.length > 0) {
+        selectedTask.prev('.state').click();
+        e.preventDefault();
+        return;
+      } 
     }
   });
 }
