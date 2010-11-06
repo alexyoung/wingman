@@ -56,9 +56,27 @@ function initKeyboardHandlers() {
       }
     }
 
+    if (e.which === 74) {
+      // J
+      var navItems = $('.outline-view li a'),
+          selected = $('.outline-view li.selected a').first(),
+          i = navItems.index(selected);
+      $(navItems[i == navItems.length - 1 ? 0 : i + 1]).click();
+      e.preventDefault();
+      return;
+    } else if (e.which === 75) {
+      // K
+      var navItems = $('.outline-view li a'),
+          selected = $('.outline-view li.selected a').first(),
+          i = navItems.index(selected);
+      $(navItems[i == 0 ? navItems.length - 1 : i - 1]).click();
+      e.preventDefault();
+      return;
+    }
+
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
 
-    if (e.which === 74 || e.which === 106) {
+    if (e.which === 106) {
       // j
       TasksController.closeEditors();
       var selectedTask = $('.task .highlight').first(),
@@ -70,7 +88,7 @@ function initKeyboardHandlers() {
       } else {
         $('li.body li.task .button').first().click();
       }
-    } else if (e.which === 75 || e.which === 107) {
+    } else if (e.which === 107) {
       // k
       TasksController.closeEditors();
       var selectedTask = $('.task .highlight').first(),
