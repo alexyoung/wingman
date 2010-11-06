@@ -67,7 +67,7 @@ function resize() {
   $('.todo-items .button').each(function() {
     this.style.width = containerWidth - $($(this).prev('.state')[0]).width() - 22 + 'px';
   });
-  $('.name-text').css({ width: width, 'max-width': width });
+  $('.name-text').css({ width: width, 'max-width': parseInt(width, 10) - 50 });
 }
 
 $(window).resize(function() {
@@ -329,15 +329,26 @@ $('#delete-project-dialog').dialog({
   autoOpen: false,
   width: 600,
   buttons: {
-     'OK': function() { 
+   'OK': function() { 
       $(this).dialog('close'); 
       Project.destroy(selectedProject());
       ProjectsController.displayAll();
       $('a.named-collection').first().click();
     }, 
-     'Cancel': function() { 
+    'Cancel': function() { 
       $(this).dialog('close'); 
     } 
+  },
+  modal: true
+});
+
+$('#export-text-dialog').dialog({
+  autoOpen: false,
+  width: 600,
+  buttons: {
+   'OK': function() { 
+      $(this).dialog('close'); 
+    }, 
   },
   modal: true
 });
@@ -356,10 +367,24 @@ $('#login-button').click(function() { $(this).closest('form').submit(); });
 $('#openid_url').select();
 
 // Resize when the dialog opens/closes else it sometimes messes up the scrollbars
-$('#delete-project-button').click(function() {
+$('#delete-project-button').click(function(e) {
   $('#delete-project-dialog').dialog('open');
   resize();
+  e.preventDefault();
   return false;
+});
+
+$('#export-text-button').click(function(e) {
+  $('#export-text-dialog').dialog('open');
+  var input = $('#export-text-value'),
+      tasks = Task.findAll({ 'project_id': selectedProject(), 'archived': false }),
+      output = '';
+
+  for (var i in tasks) {
+    output += '* ' + tasks[i].get('name') + '\n';
+  }
+  input.html(output);
+  e.preventDefault();
 });
 
 $(document).bind('dialogclose', function(event, ui) {

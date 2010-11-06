@@ -101,3 +101,5 @@ th { background-color: #ffc }
 .settings_form label { width: 7.5em; display: block; float: left }
 .settings_form input { float: left }
 .settings_form div { clear: both }
+
+#export-text-value { width: 90%; height: 300px; font-size: 110%; font-family: courier }
