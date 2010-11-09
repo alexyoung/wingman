@@ -1426,10 +1426,14 @@ Collection.inCollection = function(collectionName, task) {
 
 
 var defaultFieldValues = {
-  'name': 'Untitled task',
-  'notes': 'Notes',
-  'due': 'Due Date',
-  'search': 'Search'
+  name: 'Untitled task',
+  notes: 'Notes',
+  due: 'Due Date',
+  search: 'Search',
+  project: {
+    name: 'Untitled',
+    notes: 'Notes'
+  }
 };
 
 
@@ -1469,7 +1473,7 @@ function saveEditable() {
 
   if (projectID && input.closest('.task').length === 0) {
     project = Project.find(projectID);
-    jQuery.each(['name', 'tags', 'notes'], function(index, field) {
+    jQuery.each(['name', 'notes'], function(index, field) {
       if (input.closest('.' + field).length > 0) {
         project.set(field, input.val());
       }
@@ -1847,8 +1851,9 @@ var ProjectsController = {
       element = $('#show_project_' + project.get('id'));
     }
 
+    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name')
     $('.project-field').show();
-    $('.project-header .name-text').html(project.get('name'));
+    $('.project-header .name-text').html(name);
 
     /*
     if (project.get('tags')) {
@@ -1892,8 +1897,8 @@ var ProjectsController = {
 
   insert: function(project) {
     if (!project) return;
-
-    var html = $('<li><a id="show_project_' + project.get('id') + '" href="#">' + project.get('name') + '</a></li>');
+    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name'),
+        html = $('<li><a id="show_project_' + project.get('id') + '" href="#">' + name + '</a></li>');
     $('.outline-view .items.projects').append(html);
     $('.outline-view .projects li:last').droppable({
       hoverClass: 'hover-drag',
@@ -1923,7 +1928,8 @@ var ProjectsController = {
 
           // Insert the project name 
           if (selectedCollectionIsNamed()) {
-            taskElement.find('div.button .ui-button-text').html(project.get('name') + ': ' + task.get('name'));
+            var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name');
+            taskElement.find('div.button .ui-button-text').html(name + ': ' + task.get('name'));
           }
         }
         dragLock.timedUnlock();
