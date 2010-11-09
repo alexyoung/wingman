@@ -34,7 +34,7 @@ function saveEditable() {
 
   if (projectID && input.closest('.task').length === 0) {
     project = Project.find(projectID);
-    jQuery.each(['name', 'tags', 'notes'], function(index, field) {
+    jQuery.each(['name', 'notes'], function(index, field) {
       if (input.closest('.' + field).length > 0) {
         project.set(field, input.val());
       }
