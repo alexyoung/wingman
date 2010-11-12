@@ -53,7 +53,7 @@ var TasksController = {
 
     container = $('<li class="task" id="task_' + task.get('id') + '">'
       + '<div class="handle state ' + stateClass + ' ui-state-default ui-corner-all"><span class="ui-icon ui-icon-todo' + extraClass + '"></span></div>'
-      + '<div class="handle button ui-state-focus">' + projectText + jQuery().escapeText(task.get('name')) + '</div>'
+      + '<div class="handle button ui-state-focus">' + projectText + jQuery().escapeText(task.get('name') || defaultFieldValues.name) + '</div>'
       + '</li>');
 
     if (options.position >= 0) {

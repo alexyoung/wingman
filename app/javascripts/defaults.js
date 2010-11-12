@@ -3,9 +3,7 @@ var defaultFieldValues = {
   notes: 'Notes',
   due: 'Due Date',
   search: 'Search',
-  project: {
-    name: 'Untitled',
-    notes: 'Notes'
-  }
+  project_name: 'Untitled',
+  project_notes: 'Notes'
 };
 

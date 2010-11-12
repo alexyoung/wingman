@@ -31,7 +31,7 @@ var ProjectsController = {
       element = $('#show_project_' + project.get('id'));
     }
 
-    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name')
+    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project_name : project.get('name')
     $('.project-field').show();
     $('.project-header .name-text').html(name);
 
@@ -46,7 +46,7 @@ var ProjectsController = {
     if (project.get('notes')) {
       $('.project-header .notes').html(project.get('notes'));
     } else {
-      $('.project-header .notes').html('Notes');
+      $('.project-header .notes').html(defaultFieldValues.project_notes);
     }
 
     var tasks = ProjectsController.tasks(project);
@@ -77,7 +77,7 @@ var ProjectsController = {
 
   insert: function(project) {
     if (!project) return;
-    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name'),
+    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project_name : project.get('name'),
         html = $('<li><a id="show_project_' + project.get('id') + '" href="#">' + name + '</a></li>');
     $('.outline-view .items.projects').append(html);
     $('.outline-view .projects li:last').droppable({
@@ -108,7 +108,7 @@ var ProjectsController = {
 
           // Insert the project name 
           if (selectedCollectionIsNamed()) {
-            var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name');
+            var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project_name : project.get('name');
             taskElement.find('div.button .ui-button-text').html(name + ': ' + task.get('name'));
           }
         }

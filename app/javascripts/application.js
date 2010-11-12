@@ -282,9 +282,15 @@ $('.editable-field').live('click', function(e) {
       try {
         if (content === defaultFieldValues[element.attr('name')]) {
           content = '';
-        } else {
+        } else if (container.itemID()) {
           content = Task.find(container.itemID()).get(element.attr('name'));
+        } else {
+          var projectFieldName = element.attr('name').split(/project_/),
+              projectID = $('.outline-view li.selected a').itemID();
+          content = Project.find(projectID).get(projectFieldName[1]);
         }
+
+        if (!content) content = '';
 
         if (element.hasClass('large')) {
           input = '<textarea class="editable field" rows="6">' + content + '</textarea>';

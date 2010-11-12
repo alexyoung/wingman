@@ -1430,10 +1430,8 @@ var defaultFieldValues = {
   notes: 'Notes',
   due: 'Due Date',
   search: 'Search',
-  project: {
-    name: 'Untitled',
-    notes: 'Notes'
-  }
+  project_name: 'Untitled',
+  project_notes: 'Notes'
 };
 
 
@@ -1562,7 +1560,7 @@ var TasksController = {
 
     container = $('<li class="task" id="task_' + task.get('id') + '">'
       + '<div class="handle state ' + stateClass + ' ui-state-default ui-corner-all"><span class="ui-icon ui-icon-todo' + extraClass + '"></span></div>'
-      + '<div class="handle button ui-state-focus">' + projectText + jQuery().escapeText(task.get('name')) + '</div>'
+      + '<div class="handle button ui-state-focus">' + projectText + jQuery().escapeText(task.get('name') || defaultFieldValues.name) + '</div>'
       + '</li>');
 
     if (options.position >= 0) {
@@ -1851,7 +1849,7 @@ var ProjectsController = {
       element = $('#show_project_' + project.get('id'));
     }
 
-    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name')
+    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project_name : project.get('name')
     $('.project-field').show();
     $('.project-header .name-text').html(name);
 
@@ -1866,7 +1864,7 @@ var ProjectsController = {
     if (project.get('notes')) {
       $('.project-header .notes').html(project.get('notes'));
     } else {
-      $('.project-header .notes').html('Notes');
+      $('.project-header .notes').html(defaultFieldValues.project_notes);
     }
 
     var tasks = ProjectsController.tasks(project);
@@ -1897,7 +1895,7 @@ var ProjectsController = {
 
   insert: function(project) {
     if (!project) return;
-    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name'),
+    var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project_name : project.get('name'),
         html = $('<li><a id="show_project_' + project.get('id') + '" href="#">' + name + '</a></li>');
     $('.outline-view .items.projects').append(html);
     $('.outline-view .projects li:last').droppable({
@@ -1928,7 +1926,7 @@ var ProjectsController = {
 
           // Insert the project name 
           if (selectedCollectionIsNamed()) {
-            var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project.name : project.get('name');
+            var name = (project.get('name') || '').length === 0 ? defaultFieldValues.project_name : project.get('name');
             taskElement.find('div.button .ui-button-text').html(name + ': ' + task.get('name'));
           }
         }
@@ -2249,9 +2247,15 @@ $('.editable-field').live('click', function(e) {
       try {
         if (content === defaultFieldValues[element.attr('name')]) {
           content = '';
-        } else {
+        } else if (container.itemID()) {
           content = Task.find(container.itemID()).get(element.attr('name'));
+        } else {
+          var projectFieldName = element.attr('name').split(/project_/),
+              projectID = $('.outline-view li.selected a').itemID();
+          content = Project.find(projectID).get(projectFieldName[1]);
         }
+
+        if (!content) content = '';
 
         if (element.hasClass('large')) {
           input = '<textarea class="editable field" rows="6">' + content + '</textarea>';
