@@ -151,6 +151,7 @@ $('.outline-view a').live('click', function() {
 
   resize();
   $('#delete-task').closest('li').hide(); 
+  $('#not-today').closest('li').hide(); 
   hideArchiveButtonIfRequired();
 });
 
@@ -222,6 +223,11 @@ $('#delete-task').click(function() {
 
 $('#archive-tasks').click(function() {
   TasksController.archive($('.todo-items .done').parents('li.task'));
+});
+
+$('#not-today').click(function() {
+  $('#not-today').closest('li').hide();
+  TasksController.notToday($('.todo-items .highlight').closest('li'));
 });
 
 function parseDate(value) {
@@ -449,6 +455,7 @@ $('.todo-items .button').button({});
 $('.add-button').button({ icons: { primary: 'ui-icon-circle-plus' } });
 $('#delete-task').button({ icons: { primary: 'ui-icon-trash' } });
 $('#archive-tasks').button({ icons: { primary: 'ui-icon-arrowreturnthick-1-e' } });
+$('#not-today').button({ icons: { primary: 'ui-icon-arrowreturnthick-1-e' } });
 $('#show-settings').button({ icons: { primary: 'ui-icon-gear' } });
 $('#logout').button({ icons: { primary: 'ui-icon-power' } });
 $('#search').button({ icons: { primary: 'ui-icon-search' } });

@@ -13,6 +13,7 @@ h3. News
 
 Twitter: "@alex_young":http://twitter.com/alex_young.
 
+* [2010-11-17] Added 'Not Today' button
 * [2010-11-09] Default titles will be set instead of blank project names
 * [2010-11-06] shift-j and shift-k move through projects, return will mark as done, added text export to export project to-do lists
 * [2010-11-03] Task names and notes are now escaped, so pasting in HTML should be OK

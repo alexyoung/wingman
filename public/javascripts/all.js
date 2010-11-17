@@ -1590,6 +1590,7 @@ var TasksController = {
   closeEditors: function() {
     $('#datepicker').remove();
     $('#delete-task').closest('li').hide();
+    $('#not-today').closest('li').hide();
     $('.todo-items .button').removeClass('ui-state-active')
     $('.todo-items li.details').each(function() {
       var li = $(this),
@@ -1629,6 +1630,21 @@ var TasksController = {
           taskID = buttonContainer.itemID();
       if (taskID) {
         Task.destroy(taskID);
+        buttonContainer.remove();
+      }
+    });
+  },
+
+  notToday: function(buttons) {
+    buttons.each(function() {
+      var buttonContainer = $(this),
+          taskID = buttonContainer.itemID();
+      if (taskID) {
+        var task = Task.find(taskID);
+        Collection.removeItem('today', task.get('id'));
+        if (!task.get('project_id')) {
+          Collection.appendItem('inbox', task.get('id'));
+        }
         buttonContainer.remove();
       }
     });
@@ -1774,6 +1790,10 @@ var TasksController = {
         if (add) {
           button.highlight();
           $('#delete-task').closest('li').show();
+
+          if (Collection.isActive('today')) {
+            $('#not-today').closest('li').show();
+          }
         } else {
           if ($('.todo-items li.details').length === 0) {
             $('#delete-task').closest('li').hide();
@@ -2116,6 +2136,7 @@ $('.outline-view a').live('click', function() {
 
   resize();
   $('#delete-task').closest('li').hide(); 
+  $('#not-today').closest('li').hide(); 
   hideArchiveButtonIfRequired();
 });
 
@@ -2187,6 +2208,11 @@ $('#delete-task').click(function() {
 
 $('#archive-tasks').click(function() {
   TasksController.archive($('.todo-items .done').parents('li.task'));
+});
+
+$('#not-today').click(function() {
+  $('#not-today').closest('li').hide();
+  TasksController.notToday($('.todo-items .highlight').closest('li'));
 });
 
 function parseDate(value) {
@@ -2414,6 +2440,7 @@ $('.todo-items .button').button({});
 $('.add-button').button({ icons: { primary: 'ui-icon-circle-plus' } });
 $('#delete-task').button({ icons: { primary: 'ui-icon-trash' } });
 $('#archive-tasks').button({ icons: { primary: 'ui-icon-arrowreturnthick-1-e' } });
+$('#not-today').button({ icons: { primary: 'ui-icon-arrowreturnthick-1-e' } });
 $('#show-settings').button({ icons: { primary: 'ui-icon-gear' } });
 $('#logout').button({ icons: { primary: 'ui-icon-power' } });
 $('#search').button({ icons: { primary: 'ui-icon-search' } });
