@@ -28,6 +28,7 @@ function initKeyboardHandlers() {
 
     if (e.which === 9) {
       // Tab
+      if ($('#sort-dialog').is(':visible')) return;
       if ($('.editable .field').length > 0) saveField(e);
       e.preventDefault();
       if (!nextResponder) nextResponder = $('ul.details li.first');
@@ -113,6 +114,9 @@ function initKeyboardHandlers() {
       e.preventDefault();
     } else if (e.which === 121) {
       $('#archive-tasks').click();
+    } else if (e.which === 102) {
+      // 'f' - folder menu
+      $('.sort-task').click();
     } else if (e.which === 13) {
       var selectedTask = $('.task .highlight');
       if (selectedTask.length > 0) {

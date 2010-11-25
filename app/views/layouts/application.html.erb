@@ -22,7 +22,8 @@
         <%= render :template => 'openid/new' %>
       </div>
     <% end %>
-    <div class="outline-view">
+    <div id="sort-dialog" style="display: none"></div>
+    <div class="outline-view" id="left-hand-container">
       <ul>
         <li><h2>Collect</h2></li>
         <li>
@@ -141,6 +142,10 @@
                 <tr>
                   <td>o or space</td>
                   <td>Open task</td>
+                </tr>
+                <tr>
+                  <td>f</td>
+                  <td>Display list to reorganize task (when a task is open)</td>
                 </tr>
                 <tr>
                   <td>n</td>

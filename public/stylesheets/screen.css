@@ -49,12 +49,16 @@ ul.project-header > li { border-bottom: 1px solid #b6b6b6; margin: 0; padding: 8
 ul.project-header li.body { border: none }
 .name-text { margin-left: 5px !important; float: left }
 
+ul.folders { list-style-type: none; margin: 0; padding: 0 }
+ul.folders li { margin: 0; padding: 0 }
+
 ul.todo-items li.details { margin: 10px 0 }
 .button .ui-button-text { background-image: url('/stylesheets/images/subtle_button_bg.gif') !important } 
 ul.todo-items div.details > span { background-color: #f0f0f0 !important; background-image: none !important } 
 ul.todo-items ul.details { list-style-type: none; margin: 0; padding: 0; font-weight: normal; }
 ul.todo-items ul.details > li { border-bottom: 1px solid #b6b6b6; margin: 0; padding: 8px 0 }
-ul.todo-items ul.details li.last { border: none }
+ul.todo-items ul.details .buttons { border: none; width: 40%; float: right; padding-bottom: 4px }
+ul.todo-items ul.details li.last { border: none; width: 48%; float: left; padding-bottom: 4px }
 ul.todo-items ul.details .name { font-weight: bold }
 .ui-icon-todo { background-image: url('images/todo_blank.png') !important; }
 .ui-icon-todo-today { background-image: url('images/todo.png') !important; }
@@ -80,11 +84,12 @@ textarea.editable { width: 99%; background-color: #ffc; border: 1px solid #b6b6b
 #settings-feedback { padding: 0; margin: 0 0 20px 0 }
 div.submit { margin-top: 10px }
 
-.close-task, .clear-due { float: right; border: none !important; background-color: transparent; }
-.close-task a { border: none !important; font-weight: bold; background-color: transparent; }
-a.close-task:active { color: #000 !important }
+.close-task, .clear-due, .sort-task { float: right; border: none !important; background-color: transparent; }
+.close-task a, .sort-task a { border: none !important; font-weight: bold; background-color: transparent; display: block; text-align: right }
+.sort-task { width: 20px }
+a.close-task:active, a.sort-task:active { color: #000 !important }
 .clear-due { float: left; margin: 0 5px 0 0; padding: 0; width: 16px; height: 16px }
-.due-button { float: left; border: none !important; margin-right: 5px }
+.due-button { float: left; border: none !important; margin-right: 5px; width: 5em }
 
 table { margin: 1em 0 0 0; padding: 2px; border: #b6b6b6 solid 1px }
 td, th { text-align: left; margin: 0; padding: 5px 50px 5px 5px }

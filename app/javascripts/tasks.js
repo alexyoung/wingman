@@ -1,4 +1,8 @@
 var TasksController = {
+  selectedTask: function() {
+    return Task.find($('.task .highlight').closest('li').itemID() || $('.task.details').itemID());
+  },
+
   open: function(button) {
     var name = button.find('span').html(),
       taskID = button.closest('li.task').itemID(),
@@ -22,7 +26,10 @@ var TasksController = {
       + '<li name="notes" class="notes editable-field large">' + jQuery().escapeText(task.get('notes') || defaultFieldValues.notes) + '</li>'
       + '<li name="due" class="last type-date editable-field"><span class="due-button">' + (presentDate(task.get('due')) || defaultFieldValues.due)  + '</span>'
       + clearDueDate
-      + '<span class="close-task"><a class="close-task" href="#">Close</a></span>'
+      + '</li>'
+      + '<li class="buttons">'
+      + '<span class="close-task"><a class="close-task" href="#"><span class="ui-icon ui-icon-circle-close"> </span></a></span>'
+      + '<span class="sort-task"><a class="sort-task" href="#"><span class="ui-icon ui-icon-folder-collapsed"> </span></a></span>'
       + '</li>'
       + '</ul>');
     button.find('.editable-field').first().trigger('click');
@@ -324,6 +331,70 @@ var TasksController = {
       $('.todo-items .button').removeClass('highlight');
       return false;
     });
+
+    $('a.sort-task').live('click', function(e) {
+      var container = $('#sort-dialog').html('<p>Select a new location for this task:</p><ul class="folders"></ul>').find('ul'),
+          task = TasksController.selectedTask();
+      container.append('<li><input type="checkbox" name="named-folder" value="today"> Today</li>');
+      container.append('<li style="margin: 1em 0">Projects:</li>');
+      jQuery.each(Collection.get('projects') || [], function(index, value) {
+        var project = Project.find(value);
+        container.append('<li><input type="radio" name="folder" value="' + value + '"> ' + project.get('name') + '</li>');
+      });
+
+      if (task.get('project_id')) {
+        $('input[value="' + task.get('project_id') + '"]').attr({ 'checked': 'checked' });
+      }
+
+      if (Collection.inCollection('today', task)) {
+        $('input[value="today"]').attr({ 'checked': 'checked' });
+      }
+
+      $('#sort-dialog').dialog('open')
+    });
+
+    $('#sort-dialog').dialog({
+      autoOpen: false,
+      width: 600,
+      title: 'Organize Task',
+      buttons: {
+       'OK': function() {
+          var selected = $('input[name="folder"]:checked').val(),
+              named = $('input[name="named-folder"]:checked').val(),
+              task = TasksController.selectedTask();
+          if (task) {
+            if (selected && parseInt(selected, 0) > 0) {
+              // Move task to project
+              var project = Project.find(selected);
+              if (task.get('project_id')) {
+                Collection.removeItem('project_tasks_' + task.get('project_id'), task.get('id'));
+              }
+              task.set('project_id', project.get('id'));
+              Collection.appendItem('project_tasks_' + project.get('id'), task.get('id'));
+            }
+
+            Collection.removeItem('today', task.get('id'));
+            Collection.removeItem('inbox', task.get('id'));
+
+            if (named) {
+              // Move task to named collection
+              if (named === 'inbox') {
+                Collection.appendItem('inbox', task.get('id'));
+              } else if (named === 'today') {
+                Collection.appendItem('today', task.get('id'));
+              }
+            }
+          }
+          $('.outline-view .selected a').click();
+          $(this).dialog('close');
+        }, 
+        'Cancel': function() {
+          $(this).dialog('close');
+        }
+      },
+      modal: true
+    });
+
   }
 };
 
