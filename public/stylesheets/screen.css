@@ -9,6 +9,8 @@ h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0 }
 #global-menu ul li form { margin: 0; padding: 0 }
 #global-menu ul li form input { margin: 0; }
 
+#loading-indicator { padding: 8px 10px 0 0; line-height: 13px; color: red }
+
 .container h2 { margin-top: 10px }
 .container { padding: 10px }
 

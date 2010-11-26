@@ -13,6 +13,7 @@ if (navigator.userAgent.match(/iPad/i) != null) {
 }
 
 $(document).ajaxError(function(e, xhr, settings, exception) {
+  Storage.done();
   if (xhr.status !== 200) {
     if (settings.url.match(/update_openid/)) {
       $('#settings-feedback').html(Feedback.message('error', xhr.responseText));
@@ -29,6 +30,14 @@ Storage.ready = function() {
   ProjectsController.displayAll();
   resize();
   Feedback.hide();  
+};
+
+Storage.loading = function() {
+  $('#loading-indicator').show();
+};
+
+Storage.done = function() {
+  setTimeout(function() { $('#loading-indicator').hide('fade', {}, 250) }, 500);
 };
 
 function generateExampleData() {
