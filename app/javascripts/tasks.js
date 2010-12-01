@@ -371,12 +371,13 @@ var TasksController = {
               }
               task.set('project_id', project.get('id'));
               Collection.appendItem('project_tasks_' + project.get('id'), task.get('id'));
+              Collection.removeItem('inbox', task.get('id'));
             }
 
-            Collection.removeItem('today', task.get('id'));
-            Collection.removeItem('inbox', task.get('id'));
-
             if (named) {
+              Collection.removeItem('today', task.get('id'));
+              Collection.removeItem('inbox', task.get('id'));
+
               // Move task to named collection
               if (named === 'inbox') {
                 Collection.appendItem('inbox', task.get('id'));
