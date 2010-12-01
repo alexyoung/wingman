@@ -28,7 +28,7 @@ var TasksController = {
       + clearDueDate
       + '</li>'
       + '<li class="buttons">'
-      + '<span class="close-task"><a class="close-task" href="#"><span class="ui-icon ui-icon-circle-close"> </span></a></span>'
+      + '<span class="close-task"><a class="close-task" title="Close task" href="#"><span class="ui-icon ui-icon-circle-minus"> </span></a></span>'
       + '<span class="sort-task"><a class="sort-task" href="#"><span class="ui-icon ui-icon-folder-collapsed"> </span></a></span>'
       + '</li>'
       + '</ul>');

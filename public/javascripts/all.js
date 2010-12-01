@@ -1547,7 +1547,7 @@ var TasksController = {
       + clearDueDate
       + '</li>'
       + '<li class="buttons">'
-      + '<span class="close-task"><a class="close-task" href="#"><span class="ui-icon ui-icon-circle-close"> </span></a></span>'
+      + '<span class="close-task"><a class="close-task" title="Close task" href="#"><span class="ui-icon ui-icon-circle-minus"> </span></a></span>'
       + '<span class="sort-task"><a class="sort-task" href="#"><span class="ui-icon ui-icon-folder-collapsed"> </span></a></span>'
       + '</li>'
       + '</ul>');
@@ -1890,12 +1890,13 @@ var TasksController = {
               }
               task.set('project_id', project.get('id'));
               Collection.appendItem('project_tasks_' + project.get('id'), task.get('id'));
+              Collection.removeItem('inbox', task.get('id'));
             }
 
-            Collection.removeItem('today', task.get('id'));
-            Collection.removeItem('inbox', task.get('id'));
-
             if (named) {
+              Collection.removeItem('today', task.get('id'));
+              Collection.removeItem('inbox', task.get('id'));
+
               // Move task to named collection
               if (named === 'inbox') {
                 Collection.appendItem('inbox', task.get('id'));
