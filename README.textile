@@ -13,6 +13,7 @@ h3. News
 
 Twitter: "@alex_young":http://twitter.com/alex_young.
 
+* [2011-01-24] OpenID will be remember in a cookie
 * [2010-12-01] Various interface bug fixes
 * [2010-11-25] Added list to move task to a different project (so dragging isn't required).  Keyboard shortcut is 'f'
 * [2010-11-17] Added 'Not Today' button

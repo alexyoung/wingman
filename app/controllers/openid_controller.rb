@@ -15,7 +15,8 @@ class OpenidController < ApplicationController
     immediate = false
     return_to = url_for :action => 'complete', :only_path => false
     realm = url_for :action => 'index', :only_path => false
-    
+    cookies[:open_id] = params[:openid_url]
+
     if openid_response.send_redirect?(realm, return_to, immediate)
       redirect_to openid_response.redirect_url(realm, return_to, immediate)
     else
