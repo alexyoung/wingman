@@ -2621,7 +2621,7 @@ $('form.settings_form').submit(function(e) {
 });
 
 $('.project-field').hide();
-resize();
+setTimeout(resize, 200);
 
 var SearchController = {
   run: function(e) {
