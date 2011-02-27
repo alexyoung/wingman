@@ -15,5 +15,4 @@ test/fixtures/file_tests/premium_documents.zip
 test/fixtures/file_tests/_*.csv
 db/sphinx/development
 config/development.sphinx.conf
-*.lock
 db/cstore/
