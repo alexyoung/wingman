@@ -22,7 +22,7 @@ var SearchController = {
     tasks = Task.search(input.val());
 
     if (tasks.length === 0) {
-      $('#search-todo-items').html('<li>' + Feedback.info('error', 'No results found.') + '</li>');
+      $('#search-todo-items').html('<li>' + Feedback.message('info', 'No results found.') + '</li>');
     } else {
       TasksController.display(tasks);
     }

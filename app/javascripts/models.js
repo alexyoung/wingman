@@ -20,8 +20,10 @@ Collection.removeItem = function(collectionName, value) {
 
 Collection.appendItem = function(collectionName, value) {
   var items = Collection.get(collectionName);
-  items.push(value);
-  Collection.set(collectionName, items);
+  if (items) {
+    items.push(value);
+    Collection.set(collectionName, items);
+  }
 };
 
 Project.afterCreate = function(project) {

@@ -56,7 +56,9 @@ var TasksController = {
     }
 
     if (options.show_projects && task.get('project_id')) {
-      projectText = Project.find(task.get('project_id')).get('name') + ': ';
+      var taskProject = Project.find(task.get('project_id'));
+      if (taskProject)
+        projectText = taskProject.get('name') + ': ';
     }
 
     container = $('<li class="task" id="task_' + task.get('id') + '">'
@@ -340,7 +342,8 @@ var TasksController = {
       container.append('<li style="margin: 1em 0">Projects:</li>');
       jQuery.each(Collection.get('projects') || [], function(index, value) {
         var project = Project.find(value);
-        container.append('<li><input type="radio" name="folder" value="' + value + '"> ' + project.get('name') + '</li>');
+        if (project)
+          container.append('<li><input type="radio" name="folder" value="' + value + '"> ' + project.get('name') + '</li>');
       });
 
       if (task.get('project_id')) {
